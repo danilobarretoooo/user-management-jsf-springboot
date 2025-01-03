@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>User Management</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:messages autoUpdate="true"/>
+
+        <p:panel header="User Form">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name" value="Name:"/>
+                <p:inputText id="name" value="#{userBean.user.name}" required="true"/>
+
+                <h:outputLabel for="email" value="Email:"/>
+                <p:inputText id="email" value="#{userBean.user.email}" required="true"/>
+            </h:panelGrid>
+            <p:commandButton value="Save" action="#{userBean.saveUser}" update="@form"/>
+        </p:panel>
+
+        <p:dataTable value="#{userBean.users}" var="user" editable="true">
+            <p:column headerText="ID">
+                <h:outputText value="#{user.id}"/>
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{user.name}"/>
+            </p:column>
+            <p:column headerText="Email">
+                <h:outputText value="#{user.email}"/>
+            </p:column>
+            <p:column headerText="Actions">
+                <p:commandButton value="Delete" action="#{userBean.deleteUser(user)}" update="@form"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
